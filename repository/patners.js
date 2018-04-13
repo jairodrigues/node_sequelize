@@ -1,13 +1,19 @@
-const db = require('../models/index.js')
-const Patners = require('../models/patners')
+const Patners = app.models.patners
+const db = app.models.index
 
-async function findAll(req,res) {  
-    db.Patners.findAll({})
-        .then( patners => {
-            res.json({patners: patners})
-        })    
+async function findAll(req,res) {
+    let patners = await db.Patners.findAll({})
+    let result = await res.json({patners: patners})
+    return result
+}
+
+async function create(req,res){
+  let patner = await db.Patners.create({
+    name: 'Teste'
+  })
 }
 
 module.exports = {
-    findAll:findAll
+    findAll:findAll,
+    create:create
 }

@@ -1,9 +1,13 @@
-var app = require('express')();
-var consign = require('consign')
+import express from 'express'
+import consign from 'consign'
+import db from './models/index'
 
-consign()
-    .include("controllers")
-    .then("routes")
+var app = express();
+
+consign({cwd: 'app'})
+    .include("models")
+    .then("repository")
+    .include("routes")
     .into(app)
 
 app.listen(3000, () => [
