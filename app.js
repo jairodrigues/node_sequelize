@@ -5,7 +5,8 @@ var app = express();
 
 consign()
     .include("models/index.js")
-    .include("repository")
+    .then("repository")
+    .then("controllers")
     .then("routes")
     .into(app)
 

@@ -1,15 +1,16 @@
-import Patners from '../repository/patners'
-
-    async function getPatners(req,res){
+module.exports = function(app) {
+    const PatnersRepository = app.repository.patners
+    
+    this.getPatners = async (req,res) => {
         try{
-            const patners =  await Patners.get()
+            const patners =  await PatnersRepository.get()
             const response = await res.json({patners: patners})
             return response
         }catch(err){
             console.log(err)
         }
-    }
+}
 
-module.exports = {
-    getPatners
+    return this
+
 }

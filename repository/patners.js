@@ -1,11 +1,10 @@
-import Patners from '../models/patners'
-import db from '../models/index'
+module.exports = function(app){
+    const Patners = app.models.patners
+    const db = app.models.index
 
-async function get() {
-    return await db.Patners.findAll({})      
-}
-
-module.exports = {
-    get
+    this.get = async() => {
+        return await db.Patners.findAll({})      
+    }
+    return this
 }
 
