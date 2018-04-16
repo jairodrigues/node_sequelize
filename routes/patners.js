@@ -1,6 +1,9 @@
-module.exports = function(app) {   
+
+module.exports = function(app) {
     const PatnersController = app.controllers.patners
-    app.get("/patners", PatnersController.getPatners)
+    const Patners = require("../models/patners")
+    app.route("/patners")
+      .all()
+      .get(PatnersController.getPatners)
+      .post(PatnersController.createPatners)
  }
-
-
