@@ -32,8 +32,29 @@ module.exports = function(app) {
                 res.sendStatus(404)
             }
         }catch(err){
-
+          res.status(412).json({msg: err.message})
         }
+    }
+
+    this.putPatners = async(req, res) => {
+      try{
+        const params = req.params
+        const body = req.body
+        const patner = await PatnersRepository.put(body,params)
+        return res.sendStatus(204)
+      }catch(err){
+        res.status(412).json({msg: err.message})
+      }
+    }
+
+    this.deletePatner = async(req,res) => {
+      try{
+        const params = req.params
+        const patner = await PatnersRepository.delete(params)
+        return res.sendStatus(204)
+      }catch(err){
+        res.status(412).json({msg: err.message})
+      }
     }
 
     return this

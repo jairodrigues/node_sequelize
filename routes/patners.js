@@ -9,4 +9,5 @@ module.exports = function(app) {
     app.route("/patners/:id")
       .get(PatnersController.findPatners)
       .put(PatnersController.putPatners)
+      .delete(PatnersController.deletePatner)
  }
