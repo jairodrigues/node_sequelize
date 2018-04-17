@@ -1,33 +1,33 @@
 module.exports = function(app) {
-    const PatnersRepository = app.repository.patners
+    const TasksRepository = app.repository.tasks
 
-    this.getPatners = async(req,res) => {
+    this.getTasks = async(req,res) => {
         try{
-            const patners =  await PatnersRepository.get()
-            const response = await res.json({patners: patners})
+            const tasks =  await TasksRepository.get()
+            const response = await res.json({Task: tasks})
             return res.status(200).response
         }catch(err){
             res.status(412).json({msg: err.message})
         }
     }
 
-    this.createPatners = async(req,res) => {
+    this.createTask = async(req,res) => {
         try{
             const data = req.body
-            const patner = await PatnersRepository.create(data)
-            const response = await res.json(patner)
+            const tasks = await TasksRepository.create(data)
+            const response = await res.json(tasks)
             return response
         }catch(err){
             res.status(412).json({msg: err.message})
         }
     }
 
-    this.findPatners = async(req,res) => {
+    this.findTask = async(req,res) => {
         try{
             const params = req.params
-            const patner = await PatnersRepository.find(params)
-            if(patner){
-                res.json(patner)
+            const task = await TasksRepository.find(params)
+            if(task){
+                res.json(task)
             }else{
                 res.sendStatus(404)
             }
@@ -36,21 +36,21 @@ module.exports = function(app) {
         }
     }
 
-    this.putPatners = async(req, res) => {
+    this.putTask = async(req, res) => {
       try{
         const params = req.params
         const body = req.body
-        const patner = await PatnersRepository.put(body,params)
+        await TasksRepository.put(body,params)
         return res.sendStatus(204)
       }catch(err){
         res.status(412).json({msg: err.message})
       }
     }
 
-    this.deletePatner = async(req,res) => {
+    this.deleteTask = async(req,res) => {
       try{
         const params = req.params
-        const patner = await PatnersRepository.delete(params)
+        await TasksRepository.delete(params)
         return res.sendStatus(204)
       }catch(err){
         res.status(412).json({msg: err.message})
