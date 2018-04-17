@@ -12,15 +12,28 @@ module.exports = function(app) {
     }
 
     this.createPatners = async(req,res) => {
-      try{
-        console.log(req)
-        let data = req.body
-        const patner = await PatnersRepository.create(data)
-        const response = await res.json({patner: patner})
-        return res.status(200).response
-      }catch(err){
-        res.status(412).json({msg: err.message})
-      }
+        try{
+            const data = req.body
+            const patner = await PatnersRepository.create(data)
+            const response = await res.json(patner)
+            return response
+        }catch(err){
+            res.status(412).json({msg: err.message})
+        }
+    }
+
+    this.findPatners = async(req,res) => {
+        try{
+            const params = req.params
+            const patner = await PatnersRepository.find(params)
+            if(patner){
+                res.json(patner)
+            }else{
+                res.sendStatus(404)
+            }
+        }catch(err){
+
+        }
     }
 
     return this

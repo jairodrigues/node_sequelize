@@ -8,6 +8,9 @@ module.exports = function(app){
     this.create = async(data) => {
         return await db.Patners.create(data)
     }
+    this.find = async(data) => {
+        return await db.Patners.findOne({where: data})
+    }
     return this
 }
 

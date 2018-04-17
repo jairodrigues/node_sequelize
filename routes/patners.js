@@ -6,4 +6,7 @@ module.exports = function(app) {
       .all()
       .get(PatnersController.getPatners)
       .post(PatnersController.createPatners)
+    app.route("/patners/:id")
+      .get(PatnersController.findPatners)
+      .put(PatnersController.putPatners)
  }
