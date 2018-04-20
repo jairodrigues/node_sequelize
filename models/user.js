@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       }
   }
 },{});
-  User.associate = function(models) {
-    User.hasMany(models.Tasks, { targetKey: 'id', foreignKey: 'taskId'})
-  };
+  // User.associate = function(models){
+  //   User.belongsTo(models.Tasks)
+  // }
   return User;
 };

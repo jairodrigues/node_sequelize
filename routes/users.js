@@ -1,6 +1,6 @@
 
 module.exports = function(app) {
-    const UsersController = app.controllers.Users
+    const UsersController = app.controllers.users
     app.route("/users")
       .all()
       .get(UsersController.getUsers)

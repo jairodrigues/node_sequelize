@@ -20,6 +20,15 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull:	false,
         defaultValue:	false
+
+      },
+      userId:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

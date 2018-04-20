@@ -1,10 +1,10 @@
 module.exports = function(app) {
-    const UsersRepository = app.repository.Users
+    const UsersRepository = app.repository.users
 
     this.getUsers = async(req,res) => {
         try{
             const Users =  await UsersRepository.get()
-            const response = await res.json({Task: Users})
+            const response = await res.json({Users: Users})
             return res.status(200).response
         }catch(err){
             res.status(412).json({msg: err.message})

@@ -13,10 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       type:	DataTypes.BOOLEAN,
       allowNull:	false,
       defaultValue:	false
-    }
+    },
+     userId:{
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'User',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
   }, {});
-  Tasks.associate = function(models) {
-    Tasks.belongsTo(models.Users, { targetKey: 'id', foreignKey: 'userId'})
-  };
+
   return Tasks;
 };

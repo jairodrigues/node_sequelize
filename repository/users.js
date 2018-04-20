@@ -1,10 +1,10 @@
 module.exports = function(app){
 
-    const Users = app.models.users
+    const User = app.models.users
     const db = app.models.index
 
     this.get = async() => {
-        return await db.Users.findAll({})
+        return await db.User.findAll({})
     }
     this.create = async(data) => {
         return await db.User.create(data)
