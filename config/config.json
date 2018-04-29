@@ -4,7 +4,9 @@
     "password": "root",
     "database": "teste_development",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwtSecret": "Nta$k-AP1",
+    "jwtSession": {"session": false}
   },
   "test": {
     "username": "root",

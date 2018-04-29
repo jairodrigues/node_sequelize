@@ -5,6 +5,7 @@ var app = express();
 
 consign()
     .include("models/index.js")
+    .then("auth.js")
     .then("config/middlewares.js")
     .then("repository")
     .then("controllers")
