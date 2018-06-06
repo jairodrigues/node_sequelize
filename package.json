@@ -20,9 +20,10 @@
     "express": "^4.16.3",
     "jwt-simple": "^0.4.1",
     "mysql2": "^1.5.3",
+    "nodemon": "^1.17.5",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "sequelize": "^4.x",
+    "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0"
   }
 }
