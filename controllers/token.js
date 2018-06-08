@@ -12,7 +12,7 @@ module.exports = function(app) {
         const user = await Users.findOne({ where: { email: email } });
         if (Users.isPassword(user.password, password)) {
           const payload = { id: user.id };
-          res.json({ token: jwt.encoded(payload, cfg.jwtSecret) });
+          res.status(200).json({ token: jwt.encoded(payload, cfg.jwtSecret) });
         } else {
           res.status(401).json({ msg: error.message });
         }

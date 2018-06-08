@@ -3,7 +3,7 @@ import consign from "consign";
 
 var app = express();
 
-consign()
+consign({ verbose: false })
   .include("infra/config.js")
   .then("models/index.js")
   .then("auth.js")
@@ -14,6 +14,4 @@ consign()
   .then("infra/boot.js")
   .into(app);
 
-app.get("/", (req, res) => {
-  res.json({ status: "TEST API" });
-});
+module.exports = app;
