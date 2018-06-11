@@ -23,7 +23,7 @@ switch (ENV) {
       database: "test",
       host: "127.0.0.1",
       dialect: "mysql",
-      jwtSecret: "NTASK_TEST",
+      jwtSecret: "Nta$k-AP1",
       jwtSession: { session: false }
     };
     break;

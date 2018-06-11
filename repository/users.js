@@ -1,6 +1,6 @@
 module.exports = function(app){
 
-    const User = app.models.users
+    // const User = app.models.users
     const db = app.models.index
 
     this.get = async() => {
