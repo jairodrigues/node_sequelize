@@ -2,18 +2,48 @@ import jwt from "jwt-simple";
 
 describe("Routes: Tasks", () => {
   const models = app.models.index;
-  const User = models.User;
-  const Task = models.Tasks;
-
+  const Users = models.User;
+  const Tasks = models.Tasks;
   const jwtSecret = app.infra.config.jwtSecret;
   let token;
   let fakeTask;
 
-  beforeEach(done => {});
+  beforeEach(done => {
+    Users.destroy({ where: {} })
+      .then(() =>
+        Users.create({
+          name: "John",
+          email: "john@mail.net",
+          password: "12345"
+        })
+      )
+      .then(user => {
+        Tasks.destroy({ where: {} })
+          .then(() =>
+            Tasks.bulkCreate([
+              {
+                id: 1,
+                title: "Work",
+                userId: user.id
+              },
+              {
+                id: 2,
+                title: "Study",
+                userId: user.id
+              }
+            ])
+          )
+          .then(tasks => {
+            fakeTask = tasks[0];
+            token = jwt.encode({ id: user.id }, jwtSecret);
+            done();
+          });
+      });
+  });
 
-  describe("GET /tasks/", () => {
-    describe("Status 200", () => {
-      it("Retorna uma lista de tasks", done => {
+  describe("GET /tasks", () => {
+    describe("status 200", () => {
+      it("returns a list of tasks", done => {
         request
           .get("/tasks")
           .set("Authorization", `JWT ${token}`)
@@ -26,8 +56,40 @@ describe("Routes: Tasks", () => {
           });
       });
     });
-    describe("Status 404", () => {
-      it("Lança erro quando a task não existe", done => {
+  });
+
+  describe("POST /tasks", () => {
+    describe("status 200", () => {
+      it("creates a new task", done => {
+        request
+          .post("/tasks")
+          .set("Authorization", `JWT ${token}`)
+          .send({ title: "Run" })
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.title).to.eql("Run");
+            expect(res.body.done).to.be.false;
+            done(err);
+          });
+      });
+    });
+  });
+
+  describe("GET /tasks/:id", () => {
+    describe("status 200", () => {
+      it("returns one task", done => {
+        request
+          .get(`/tasks/${fakeTask.id}`)
+          .set("Authorization", `JWT ${token}`)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.title).to.eql("Work");
+            done(err);
+          });
+      });
+    });
+    describe("status 404", () => {
+      it("throws error when task not exist", done => {
         request
           .get("/tasks/0")
           .set("Authorization", `JWT ${token}`)
@@ -37,38 +99,31 @@ describe("Routes: Tasks", () => {
     });
   });
 
-  describe("POST /tasks/", () => {
-    describe("Status 200", () => {
-      it("Criando uma nova task", () => {});
-    });
-  });
-  describe("GET /tasks/:id", () => {
-    describe("status 200", () => {
-      it("Retorna Task especifica através de ID", done => {
-        // Código de testes
-      });
-    });
-    describe("status 404", () => {
-      it("Retorna erro caso a task não exista", done => {
-        // Código de testes
-      });
-    });
-  });
   describe("PUT /tasks/:id", () => {
     describe("status 204", () => {
-      it("Alteração da Task", done => {
-        // Código de testes
+      it("updates a task", done => {
+        request
+          .put(`/tasks/${fakeTask.id}`)
+          .set("Authorization", `JWT ${token}`)
+          .send({
+            title: "Travel",
+            done: true
+          })
+          .expect(204)
+          .end((err, res) => done(err));
       });
     });
   });
+
   describe("DELETE /tasks/:id", () => {
     describe("status 204", () => {
-      it("Excluindo Task", done => {
-        // Código de testes
+      it("removes a task", done => {
+        request
+          .delete(`/tasks/${fakeTask.id}`)
+          .set("Authorization", `JWT ${token}`)
+          .expect(204)
+          .end((err, res) => done(err));
       });
     });
-  });
-  describe("GET /tasks", () => {
-    describe("status 200", () => {});
   });
 });
