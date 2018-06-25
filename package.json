@@ -6,9 +6,10 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test/**/*.js",
     "babel-node": "babel-node",
-    "start": "nodemon --exec npm run babel-node -- ./app.js"
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec npm run babel-node -- src/index.js"
   },
-  "author": "",
+  "author": "jairo <jairo.goncalves90@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -30,5 +31,6 @@
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
     "supertest": "^1.2.0"
-  }
+  },
+  "repository": "https://github.com/jairodrigues/node_sequelize.git"
 }

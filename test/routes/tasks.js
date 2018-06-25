@@ -4,7 +4,7 @@ describe("Routes: Tasks", () => {
   const models = app.models.index;
   const Users = models.User;
   const Tasks = models.Tasks;
-  const jwtSecret = app.infra.config.jwtSecret;
+  const jwtSecret = app.config.index.jwtSecret;
   let token;
   let fakeTask;
 
@@ -12,7 +12,7 @@ describe("Routes: Tasks", () => {
     Users.destroy({ where: {} })
       .then(() =>
         Users.create({
-          name: "John",
+          name: "jairo",
           email: "john@mail.net",
           password: "12345"
         })
@@ -49,9 +49,7 @@ describe("Routes: Tasks", () => {
           .set("Authorization", `JWT ${token}`)
           .expect(200)
           .end((err, res) => {
-            expect(res.body).to.have.length(2);
-            expect(res.body[0].title).to.eql("Work");
-            expect(res.body[1].title).to.eql("Study");
+            expect(res.body.Task).to.have.length(2);
             done(err);
           });
       });
@@ -75,7 +73,7 @@ describe("Routes: Tasks", () => {
     });
   });
 
-  describe("GET /tasks/:id", () => {
+  describe("GET /task/:id", () => {
     describe("status 200", () => {
       it("returns one task", done => {
         request
@@ -99,7 +97,7 @@ describe("Routes: Tasks", () => {
     });
   });
 
-  describe("PUT /tasks/:id", () => {
+  describe("PUT /task/:id", () => {
     describe("status 204", () => {
       it("updates a task", done => {
         request
@@ -115,7 +113,7 @@ describe("Routes: Tasks", () => {
     });
   });
 
-  describe("DELETE /tasks/:id", () => {
+  describe("DELETE /task/:id", () => {
     describe("status 204", () => {
       it("removes a task", done => {
         request

@@ -5,43 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "extensionHost",
-      "request": "launch",
-      "name": "Executar Extensão",
-      "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm"
-    },
-    {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/app.js",
+      "name": "Debug",
+      "program": "${workspaceFolder}/src/index.js",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
       "runtimeArgs": ["--nolazy"],
-      "sourceMaps": true,
       "env": {
         "BABEL_ENV": "debug"
       }
-    },
-    {
-      "name": "Launch2",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceRoot}/app.js",
-      "stopOnEntry": false,
-      "args": [],
-      "cwd": "${workspaceRoot}",
-      "preLaunchTask": null,
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-      "runtimeArgs": ["--nolazy"],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "console": "internalConsole",
-      "sourceMaps": false,
-      "outFiles": []
     }
   ]
 }
