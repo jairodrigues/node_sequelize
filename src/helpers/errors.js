@@ -1,6 +1,6 @@
 const error = err => {
-  if (err.name == "SequelizeUniqueConstraintError") {
-    return (err.message = "Usuário já possui cadastro");
+  if (err.name === 'SequelizeUniqueConstraintError') {
+    err.message = 'Usuário já possui cadastro';
   }
 };
 

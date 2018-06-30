@@ -1,8 +1,8 @@
-import * as db from "../../../config/db";
-import ErrorHelper from "../../../helpers/errors";
+import * as db from '../../../config/db';
+import ErrorHelper from '../../../helpers/errors';
 
 export const get = async () => {
-  return await db.User.findAll({});
+  await db.User.findAll({});
 };
 
 export const create = async data => {

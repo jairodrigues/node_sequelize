@@ -1,44 +1,43 @@
-"use strict";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       name: {
         type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       password: {
         type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       email: {
         type: DataTypes.STRING(100),
         unique: true,
         allowNull: false,
         validate: {
-          notEmpty: true
-        }
-      }
+          notEmpty: true,
+        },
+      },
     },
     {
       hooks: {
         beforeCreate: user => {
           const salt = bcrypt.genSaltSync();
           user.password = bcrypt.hashSync(user.password, salt);
-        }
-      }
+        },
+      },
     }
   );
   User.isPassword = (encodedPassword, password) => {
-    return bcrypt.compareSync(password, encodedPassword);
+    bcrypt.compareSync(password, encodedPassword);
   };
 
   return User;
