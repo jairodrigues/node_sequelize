@@ -1,6 +1,3 @@
 module.exports = (message, status, req, res) => {
-  res.status = status;
-  res.body = {
-    errorMessage: message,
-  };
+  res.status(status).json({ errorMessage: message });
 };

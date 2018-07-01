@@ -1,4 +1,3 @@
 module.exports = (data, status, req, res) => {
-  res.status = status;
-  res.body = data;
+  res.status(status).json(data);
 };

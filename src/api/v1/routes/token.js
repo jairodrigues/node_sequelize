@@ -1,5 +1,5 @@
-import * as TokenHelper from '../../../helpers/token';
+import gerarToken from '../../../helpers/token';
 
-module.exports = function(app) {
-  app.route('/auth').post(TokenHelper.gerarToken);
+module.exports = app => {
+  app.route('/auth').post(gerarToken);
 };

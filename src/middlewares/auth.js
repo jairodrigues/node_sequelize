@@ -1,12 +1,12 @@
-import passport from "passport";
-import { Strategy, ExtractJwt } from "passport-jwt";
+import passport from 'passport';
+import { Strategy, ExtractJwt } from 'passport-jwt';
 
 module.exports = app => {
-  const Users = app.config.User;
+  const { db } = app.config;
   const cfg = app.config.index;
   const params = {
     secretOrKey: cfg.jwtSecret,
-    jwtFromRequest: ExtractJwt.fromAuthHeader()
+    jwtFromRequest: ExtractJwt.fromAuthHeader(),
   };
 
   const strategy = new Strategy(params, (payload, done) => {
@@ -15,7 +15,7 @@ module.exports = app => {
         if (user) {
           return done(null, {
             id: user.id,
-            email: user.email
+            email: user.email,
           });
         }
         return done(null, false);
@@ -24,11 +24,7 @@ module.exports = app => {
   });
   passport.use(strategy);
   return {
-    initialize: () => {
-      return passport.initialize();
-    },
-    authenticate: () => {
-      return passport.authenticate("jwt", cfg.jwtSession);
-    }
+    initialize: () => passport.initialize(),
+    authenticate: () => passport.authenticate('jwt', cfg.jwtSession),
   };
 };
