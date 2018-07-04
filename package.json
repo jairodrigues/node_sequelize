@@ -6,8 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test/**/*.js",
     "babel-node": "babel-node",
-    "start": "babel-node src/index.js",
-    "dev": "nodemon --exec npm run babel-node -- src/index.js",
+    "dev": "NODE_ENV=dev nodemon --exec npm run babel-node -- src/index.js",
     "lint": "eslint ."
   },
   "author": "jairo <jairo.goncalves90@gmail.com>",
@@ -21,6 +20,7 @@
     "express": "^4.16.3",
     "http-status": "^1.2.0",
     "jwt-simple": "^0.4.1",
+    "moment": "^2.22.2",
     "mysql2": "^1.5.3",
     "nodemon": "^1.17.5",
     "passport": "^0.3.2",

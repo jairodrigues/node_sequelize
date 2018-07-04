@@ -1,4 +1,4 @@
-const ENV = process.env.NODE_ENV || 'development';
+const ENV = process.env.NODE_ENV;
 
 let config = null;
 
@@ -7,8 +7,8 @@ switch (ENV) {
     config = {
       username: 'root',
       password: 'root',
-      database: 'teste_development',
-      host: '127.0.0.1',
+      database: 'development',
+      host: 'localhost',
       dialect: 'mysql',
       jwtSecret: 'Nta$k-AP1',
       jwtSession: { session: false },
@@ -19,7 +19,7 @@ switch (ENV) {
       username: 'root',
       password: 'root',
       database: 'test',
-      host: '127.0.0.1',
+      host: 'localhost',
       dialect: 'mysql',
       jwtSecret: 'Nta$k-AP1',
       jwtSession: { session: false },

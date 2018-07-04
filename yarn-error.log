@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add -s http-status
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add moment
 
 PATH: 
   /home/jairodrigues/bin:/home/jairodrigues/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -25,8 +25,7 @@ npm manifest:
     "scripts": {
       "test": "NODE_ENV=test mocha test/**/*.js",
       "babel-node": "babel-node",
-      "start": "babel-node src/index.js",
-      "dev": "nodemon --exec npm run babel-node -- src/index.js",
+      "dev": "NODE_ENV=dev nodemon --exec npm run babel-node -- src/index.js",
       "lint": "eslint ."
     },
     "author": "jairo <jairo.goncalves90@gmail.com>",
@@ -38,6 +37,7 @@ npm manifest:
       "body-parser": "^1.18.2",
       "consign": "^0.1.6",
       "express": "^4.16.3",
+      "http-status": "^1.2.0",
       "jwt-simple": "^0.4.1",
       "mysql2": "^1.5.3",
       "nodemon": "^1.17.5",
@@ -1985,6 +1985,10 @@ Lockfile:
       inherits "2.0.3"
       setprototypeof "1.1.0"
       statuses ">= 1.4.0 < 2"
+  
+  http-status@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/http-status/-/http-status-1.2.0.tgz#05f2a54c94f94d32d877b3a31ae08479772ba9f1"
   
   iconv-lite@0.4.19:
     version "0.4.19"
