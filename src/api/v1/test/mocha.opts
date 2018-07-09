@@ -1,0 +1,4 @@
+--require src/api/v1/test/helpers.js
+--reporter spec
+--compilers js:babel-register
+--slow 5000
