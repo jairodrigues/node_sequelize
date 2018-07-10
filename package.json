@@ -8,7 +8,7 @@
     "babel-node": "babel-node",
     "dev": "NODE_ENV=development nodemon --exec npm run babel-node -- src/index.js",
     "lint": "eslint .",
-    "sequelize": "NODE_ENV=test bash ./scripts/sequelize.sh"
+    "sequelize": "NODE_ENV=development bash ./scripts/sequelize.sh"
   },
   "author": "jairo <jairo.goncalves90@gmail.com>",
   "license": "ISC",

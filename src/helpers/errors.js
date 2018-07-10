@@ -3,6 +3,14 @@ const error = err => {
   if (errParam.name === 'SequelizeUniqueConstraintError') {
     errParam.message = 'Usuário já possui cadastro';
   }
+  if(err.name == 'SequelizeValidationError'){
+    const erro = []
+    err.errors.forEach(err => {
+      erro.push(err.path)      
+    });
+    return errParam.message = `Erro de ${erro}` 
+    
+  }
 };
 
 export default error;
