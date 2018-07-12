@@ -3,7 +3,7 @@ import * as UserController from '../controllers/users';
 module.exports = app => {
   app
     .route(`${app.get('route-path-v1')}/users`)
-    .all()
+    .all(app.middlewares.auth.authenticate())
     .get(UserController.getUsers)
     .post(UserController.createUser);
   app

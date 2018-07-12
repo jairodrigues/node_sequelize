@@ -12,12 +12,22 @@ describe('Users', () => {
   });
 
   describe('Get Users', () => {
-    it('usuário criado com sucesso', done => {
+    it('Buscar todos os usuários', done => {
       request
         .get('/api/v1/users')
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.exist;
+          expect(res.body[0].name).to.equal('Rafaela')
+          done(err);
+        });
+    });
+    it('Erro ao buscar todos os usuários', done => {
+      request
+        .get('/api/v1/users')
+        .expect(500)
+        .end((err, res) => {
+          expect(res.body).to.not.exist;
           expect(res.body[0].name).to.equal('Rafaela')
           done(err);
         });
