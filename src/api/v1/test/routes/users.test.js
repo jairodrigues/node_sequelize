@@ -11,6 +11,19 @@ describe('Users', () => {
     await db.User.create({ id:2, name: 'Rafaela', email:'rafa@teste.com', password: 'rafa123'})
   });
 
+  describe('Get Users', () => {
+    it('usuário criado com sucesso', done => {
+      request
+        .get('/api/v1/users')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body[0].name).to.equal('Rafaela')
+          done(err);
+        });
+    });
+  });
+
   describe('Create User', () => {
     it('usuário criado com sucesso', done => {
       request
@@ -41,7 +54,7 @@ describe('Users', () => {
         .expect(412)
         .end((err, res) => {
           expect(res.body).to.exist;
-          expect(res.body.errorMessage).to.equal('Usuário já possui cadastro');
+          expect(res.body.errorMessage).to.exist;
           done(err);
         });
     });

@@ -8,8 +8,9 @@ const error = err => {
     err.errors.forEach(err => {
       erro.push(err.path)      
     });
-    return errParam.message = `Erro de ${erro}` 
-    
+   
+    const resp = errParam.message = `Propriedade(s) contem algum erro de validação : { ${err.errors.map(item => item.path)} }` 
+      return resp
   }
 };
 
