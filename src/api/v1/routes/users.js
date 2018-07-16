@@ -8,6 +8,7 @@ module.exports = app => {
     .post(UserController.createUser);
   app
     .route(`${app.get('route-path-v1')}/user/:id`)
+    .all(app.middlewares.auth.authenticate())
     .get(UserController.findUser)
     .put(UserController.putUser)
     .delete(UserController.deleteUser);

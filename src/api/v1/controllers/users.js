@@ -22,9 +22,9 @@ export const createUser = async (req, res) => {
     onSuccess(response, HTTPStatus.OK, req, res);
   } catch (err) {
     const message = err.message || 'Não foi possível criar um novo Usuário';
-    if(message == 'Não foi possível criar um novo Usuário')
+    if (message == 'Não foi possível criar um novo Usuário')
       onError(message, HTTPStatus.INTERNAL_SERVER_ERROR, req, res);
-    else{
+    else {
       onError(message, HTTPStatus.PRECONDITION_FAILED, req, res);
     }
   }
@@ -42,7 +42,7 @@ export const findUser = async (req, res) => {
   } catch (err) {
     const message =
       err.message || 'Não foi possível buscar o Usuário solicitado';
-    onError(message, HTTPStatus.INSUFFICIENT_STORAGE, req, res);
+    onError(message, HTTPStatus.EXPECTATION_FAILED, req, res);
   }
 };
 

@@ -16,11 +16,12 @@
       }
     },
     {
-      "name": "Run Mocha Tests",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceRoot}",
+      "name": "Debug Test",
       "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+      "runtimeArgs": ["--nolazy"],
       "args": [
         "${workspaceRoot}/src/api/v1/test/**/*.js",
         "--require",
@@ -32,12 +33,9 @@
         "--colors"
       ],
       "env": {
+        "BABEL_ENV": "debug",
         "NODE_ENV": "development"
       }
-      // "runtimeArgs": ["--nolazy"],
-      // "sourceMaps": false
     }
   ]
-  // }
-  // NODE_ENV=test mocha --opts src/api/v1/test/mocha.opts src/api/v1/test/**/*.js"
 }

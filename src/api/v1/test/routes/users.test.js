@@ -1,6 +1,6 @@
 /*eslint-disable */
 
-describe('Users', () => {
+describe('TEST USERS', () => {
   const db = require('../../../../config/db');
 
   afterEach(async () => {
@@ -16,7 +16,7 @@ describe('Users', () => {
     });
   });
 
-  describe('Get Users', () => {
+  describe('GET USERS', () => {
     it('Buscar todos os usuários', done => {
       request
         .get('/api/v1/users')
@@ -28,10 +28,18 @@ describe('Users', () => {
           done(err);
         });
     });
+    it('Buscar todos os usuários sem autorização', done => {
+      request
+        .get('/api/v1/users')
+        .expect(401)
+        .end((err, res) => {
+          done(err);
+        });
+    });
   });
 
-  describe('Create User', () => {
-    it('usuário criado com sucesso', done => {
+  describe('POST USER', () => {
+    it('Criação de um usuário com sucesso', done => {
       request
         .post('/api/v1/users')
         .set('Authorization', `Bearer	${tokenFake}`)
@@ -47,7 +55,7 @@ describe('Users', () => {
           done(err);
         });
     });
-    it('usuário já existe no sistema', done => {
+    it('Criação de um usuário que já existe no sistema', done => {
       request
         .post('/api/v1/users')
         .set('Authorization', `Bearer	${tokenFake}`)
@@ -59,7 +67,7 @@ describe('Users', () => {
           done(err);
         });
     });
-    it('usuário não foi criado, erro de parametros', done => {
+    it('Criação de usuário com paramentros fautantes ou errados', done => {
       request
         .post('/api/v1/users')
         .set('Authorization', `Bearer	${tokenFake}`)
@@ -68,6 +76,52 @@ describe('Users', () => {
         .end((err, res) => {
           expect(res.body).to.exist;
           expect(res.body.errorMessage).to.exist;
+          done(err);
+        });
+    });
+    it('Criação de usuário sem autorização', done => {
+      request
+        .get('/api/v1/users')
+        .expect(401)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+  });
+
+  describe('FIND USER', () => {
+    it('Buscar usuário cadastrado no sistema a partir de seu ID', done => {
+      request
+        .get('/api/v1/user/1')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.id).to.equal(1);
+          expect(res.body.email).to.equal('rafa@teste.com');
+          expect(res.body.name).to.equal('Rafaela');
+          done(err);
+        });
+    });
+    it('Buscar usuário que não estão cadastrados no sistema', done => {
+      request
+        .get('/api/v1/user/2')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .expect(417)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.errorMessage).to.exist;
+          expect(res.body.errorMessage).to.equal(
+            'Não foi possível buscar o Usuário solicitado'
+          );
+          done(err);
+        });
+    });
+    it('Buscar usuário cadastrado sem autorização', done => {
+      request
+        .get('/api/v1/user/1')
+        .expect(401)
+        .end((err, res) => {
           done(err);
         });
     });
