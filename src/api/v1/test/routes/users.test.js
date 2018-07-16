@@ -1,6 +1,6 @@
 /*eslint-disable */
 
-describe('TEST USERS', () => {
+describe('USERS BDD', () => {
   const db = require('../../../../config/db');
 
   afterEach(async () => {
@@ -81,7 +81,7 @@ describe('TEST USERS', () => {
     });
     it('Criação de usuário sem autorização', done => {
       request
-        .get('/api/v1/users')
+        .post('/api/v1/users')
         .expect(401)
         .end((err, res) => {
           done(err);
@@ -120,6 +120,80 @@ describe('TEST USERS', () => {
     it('Buscar usuário cadastrado sem autorização', done => {
       request
         .get('/api/v1/user/1')
+        .expect(401)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+  });
+
+  describe('PUT USER', () => {
+    it('Alterar dados de usuário cadastrado no sistema', done => {
+      request
+        .put('/api/v1/user/1')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .send({ name: 'Jairo', email: 'jairo@teste.com', password: 'jairo123' })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.message).to.exist;
+          expect(res.body.message).to.equal(
+            'Dados do usuário alterados com sucesso'
+          );
+          done(err);
+        });
+    });
+    it('Alterar dados de usuário que não está cadastrado no sistema', done => {
+      request
+        .put('/api/v1/user/2')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .send({ name: 'Jairo', email: 'jairo@teste.com', password: 'jairo123' })
+        .expect(500)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.errorMessage).to.exist;
+          expect(res.body.errorMessage).to.equal('Usuário não encontrado');
+          done(err);
+        });
+    });
+    it('Alterar dados de usuário cadastrado no sistema sem autorização', done => {
+      request
+        .put('/api/v1/user/1')
+        .expect(401)
+        .end((err, res) => {
+          done(err);
+        });
+    });
+  });
+
+  describe('DELETE USER', () => {
+    it('Excluir usuário cadastrado no sistema', done => {
+      request
+        .delete('/api/v1/user/1')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.message).to.exist;
+          expect(res.body.message).to.equal('Usúario excluido com sucesso');
+          done(err);
+        });
+    });
+    it('Excluir usuário que não está cadastrado no sistema', done => {
+      request
+        .put('/api/v1/user/2')
+        .set('Authorization', `Bearer	${tokenFake}`)
+        .expect(500)
+        .end((err, res) => {
+          expect(res.body).to.exist;
+          expect(res.body.errorMessage).to.exist;
+          expect(res.body.errorMessage).to.equal('Usuário não encontrado');
+          done(err);
+        });
+    });
+    it('Excluir usuário cadastrado no sistema sem autorização', done => {
+      request
+        .put('/api/v1/user/1')
         .expect(401)
         .end((err, res) => {
           done(err);

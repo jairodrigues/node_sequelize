@@ -1,5 +1,5 @@
 import gerarToken from '../../../helpers/token';
 
 module.exports = app => {
-  app.route('/auth').post(gerarToken);
+  app.route(`${app.get('route-path-v1')}/auth`).post(gerarToken);
 };

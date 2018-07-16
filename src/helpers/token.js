@@ -8,19 +8,21 @@ const gerarToken = async (req, res) => {
       const { email, password } = req.body;
       const user = await db.User.findOne({ where: { email } });
       if (user == null) {
-        res.status(401).json({ error: 'Usuário não possui cadastro' });
+        res.status(500).json({ errorMessage: 'Usuário não possui cadastro' });
       }
       if (db.User.isPassword(user.password, password)) {
         const payload = { id: user.id };
         res.status(200).json({ token: jwt.encode(payload, config.jwtSecret) });
       } else {
-        res.status(401).json({ msg: error.message });
+        res.status(500).json({ errorMessage: 'Senha inválida' });
       }
     } else {
-      res.status(401).json({ msg: error.message });
+      res
+        .status(500)
+        .json({ errorMessage: 'Parametros email e senha necessários' });
     }
   } catch (error) {
-    res.status(401).json({ msg: error.message });
+    res.status(500).json({ errorMessage: error.message });
   }
 };
 
