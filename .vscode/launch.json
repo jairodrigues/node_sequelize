@@ -32,10 +32,10 @@
         "--colors"
       ],
       "env": {
-        "NODE_ENV": "test"
-      },
-      "runtimeArgs": ["--nolazy"],
-      "sourceMaps": true
+        "NODE_ENV": "development"
+      }
+      // "runtimeArgs": ["--nolazy"],
+      // "sourceMaps": false
     }
   ]
   // }
