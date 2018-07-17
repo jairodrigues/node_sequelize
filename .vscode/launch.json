@@ -25,6 +25,7 @@
       "args": [
         "${workspaceRoot}/src/api/v1/test/**/*.js",
         "--require",
+        "${workspaceRoot}/src/config/test.js",
         "babel-register",
         "-u",
         "tdd",

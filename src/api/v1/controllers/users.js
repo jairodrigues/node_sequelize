@@ -22,7 +22,7 @@ export const createUser = async (req, res) => {
     onSuccess(response, HTTPStatus.OK, req, res);
   } catch (err) {
     const message = err.message || 'Não foi possível criar um novo Usuário';
-    if (message == 'Não foi possível criar um novo Usuário')
+    if (message === 'Não foi possível criar um novo Usuário')
       onError(message, HTTPStatus.INTERNAL_SERVER_ERROR, req, res);
     else {
       onError(message, HTTPStatus.PRECONDITION_FAILED, req, res);
