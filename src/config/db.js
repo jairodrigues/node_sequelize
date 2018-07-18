@@ -1,3 +1,5 @@
+import logger from './logger.js';
+
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -11,6 +13,12 @@ const sequelize = new Sequelize(
   config.password,
   {
     dialect: config.dialect,
+    logging: sql => {
+      logger.info(`[${new Date()}] ${sql}`);
+    },
+    define: {
+      underscored: true,
+    },
     host: config.host,
     port: config.port || '',
   }
