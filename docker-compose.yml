@@ -1,0 +1,109 @@
+
+version : '3.1'
+
+services:
+
+  nginx:
+    build:
+      dockerfile: nginx.dockerfile
+      context: .
+    image: jairo/nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    networks:
+      - production-network
+    depends_on:
+      - "node1"
+      - "node2"
+      - "node3"
+
+  db:
+    image: microsoft/mssql-server-linux:latest
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "MSSQL_SA_PASSWORD=Juninho99"
+    ports:
+      - "1436:1433"
+    networks:
+      - production-network
+
+  node1:
+    build:
+      dockerfile: api.dockerfile
+      context: .
+    image: jairodrigues/api-node
+    container_name: api-user-1
+    working_dir: /app
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "db"
+    secrets:
+      - db-username
+      - db-password
+      - db-host
+      - db-name
+    command: './scripts/sequelize.sh'
+    volumes:
+      - '.:/app'
+
+  node2:
+    build:
+      dockerfile: api.dockerfile
+      context: .
+    image: jairodrigues/api-node
+    container_name: api-user-2
+    working_dir: /app
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "db"
+    secrets:
+      - db-username
+      - db-password
+      - db-host
+      - db-name
+    command: './scripts/sequelize.sh'
+    volumes:
+      - '.:/app'
+
+  node3:
+    build:
+      dockerfile: api.dockerfile
+      context: .
+    image: jairodrigues/api-node
+    container_name: api-user-3
+    working_dir: /app
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "db"
+    command: './scripts/sequelize.sh'
+    volumes:
+      - '.:/app'
+    secrets:
+      - db-username
+      - db-password
+      - db-host
+      - db-name
+
+networks:
+  production-network:
+    driver: bridge
+
+secrets:
+  db-username:
+    file: ./secrets/db-username
+  db-password:
+    file: ./secrets/db-password
+  db-host:
+    file: ./secrets/db-host
+  db-name:
+    file: ./secrets/db-name
