@@ -8,4 +8,4 @@ cache:
 before_script:
   - npm run dev
 after_success:
-  - npm run test
+  - npm run coverage
